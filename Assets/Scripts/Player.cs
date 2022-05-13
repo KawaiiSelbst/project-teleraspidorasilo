@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,13 +18,18 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private Rigidbody2D fireBall;
+    [SerializeField]
+    private ShieldFragment shieldFragment; 
 
-    private List<Rigidbody2D> fireballInstances; 
+    private List<ShieldFragment> shieldFragmentInstances = new List<ShieldFragment>();
 
     private BoxCollider2D boxCollider2D;
     private Vector2 velocity;
     private bool isGrounded;
     private int jumpsCount;
+
+    public delegate void NewShieldDrawHandler();
+    public event NewShieldDrawHandler OnNewShieldDraw;
 
     private void Awake()
     {
@@ -63,11 +69,11 @@ public class Player : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
-            fireballInstances.Add(ShootFireball());
+            ShootFireball();
         }
         if (Input.GetButtonDown("Fire2"))
         {
-            DrawFireShield();
+            StartCoroutine(DrawFireShield());
         }
 
         velocity.y += Physics2D.gravity.y * Time.deltaTime;
@@ -78,7 +84,9 @@ public class Player : MonoBehaviour
 
         foreach (Collider2D hit in hits)
         {
-            if (hit == boxCollider2D)
+            if (hit.tag == "Player")
+                continue;
+            if (hit.tag == "Shield")
                 continue;
 
             ColliderDistance2D colliderDistance = hit.Distance(boxCollider2D);
@@ -96,13 +104,41 @@ public class Player : MonoBehaviour
     }
     private Rigidbody2D ShootFireball()
     {
-        Rigidbody2D fireBallInstance = Instantiate(fireBall, transform.position, transform.rotation);
+        Rigidbody2D fireBallInstance = Instantiate(
+            fireBall,
+            transform.position,
+            transform.rotation);
         fireBallInstance.velocity = transform.right * 70;
         return fireBallInstance;
     }
-    private void DrawFireShield()
-    {
 
+    private IEnumerator DrawFireShield()
+    {
+        if (OnNewShieldDraw != null)
+        {
+            OnNewShieldDraw();
+        }
+            for (int i = 0; i < 20; i++)
+        {
+            if (!Input.GetButton("Fire2"))
+            {
+                break;
+             }
+            shieldFragmentInstances.Add(DrawShieldFragment());
+            yield return new WaitForSeconds(0.01f);
+        }
+    }
+
+    private ShieldFragment DrawShieldFragment()
+    {
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.z = 0;
+        ShieldFragment fragment = Instantiate(
+            shieldFragment,
+            mousePosition,
+            transform.rotation);
+        fragment.SetPlayerComponent(this);
+        return fragment;
     }
 }
 
