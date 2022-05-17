@@ -25,6 +25,8 @@ public class Player : MonoBehaviour
     private bool isGrounded;
     private int jumpsCount;
 
+
+
     private void Awake()
     {
         boxCollider2D = GetComponent<BoxCollider2D>();
