@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,12 +19,14 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Rigidbody2D fireBall;
 
-    private List<Rigidbody2D> fireballInstances; 
+    private List<Rigidbody2D> fireballInstances = new List<Rigidbody2D>(); 
 
     private BoxCollider2D boxCollider2D;
     private Vector2 velocity;
     private bool isGrounded;
     private int jumpsCount;
+
+    public event Action<Vector3> CameraToPlayerWrap;
 
     private void Awake()
     {
@@ -34,6 +37,8 @@ public class Player : MonoBehaviour
     {
 
         transform.Translate(velocity * Time.deltaTime);
+
+        CameraToPlayerWrap(transform.position);
 
         float moveInput = Input.GetAxisRaw("Horizontal");
 
