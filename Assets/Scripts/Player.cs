@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Rigidbody2D fireBall;
 
-    private List<Rigidbody2D> fireballInstances; 
+    private List<Rigidbody2D> fireballInstances = new List<Rigidbody2D>(); 
 
     private BoxCollider2D boxCollider2D;
     private Vector2 velocity;
