@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,7 +26,7 @@ public class Player : MonoBehaviour
     private bool isGrounded;
     private int jumpsCount;
 
-
+    public event Action<Vector3> CameraToPlayerWrap;
 
     private void Awake()
     {
@@ -36,6 +37,8 @@ public class Player : MonoBehaviour
     {
 
         transform.Translate(velocity * Time.deltaTime);
+
+        CameraToPlayerWrap(transform.position);
 
         float moveInput = Input.GetAxisRaw("Horizontal");
 
