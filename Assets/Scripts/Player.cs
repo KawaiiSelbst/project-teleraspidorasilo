@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
@@ -17,8 +17,6 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private Rigidbody2D fireBall;
-
-    private List<Rigidbody2D> fireballInstances; 
 
     private BoxCollider2D boxCollider2D;
     private Vector2 velocity;
@@ -63,7 +61,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
-            fireballInstances.Add(ShootFireball());
+            ShootFireball();
         }
         if (Input.GetButtonDown("Fire2"))
         {
@@ -96,7 +94,8 @@ public class Player : MonoBehaviour
     }
     private Rigidbody2D ShootFireball()
     {
-        Rigidbody2D fireBallInstance = Instantiate(fireBall, transform.position, transform.rotation);
+        Vector2 fireBallPosition = transform.position + Vector3.right;
+        Rigidbody2D fireBallInstance = Instantiate(fireBall, fireBallPosition, transform.rotation);
         fireBallInstance.velocity = transform.right * 70;
         return fireBallInstance;
     }
