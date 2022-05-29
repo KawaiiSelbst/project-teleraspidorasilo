@@ -166,3 +166,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lifeTime: 10
+  _explotionPrefab: {fileID: 2193131473426785995, guid: 194228ffe2f802d49a9f6f65ee283fcf, type: 3}
