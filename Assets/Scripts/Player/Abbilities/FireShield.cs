@@ -6,20 +6,19 @@ using UnityEngine;
 public class FireShield : MonoBehaviour
 {
     [SerializeField] ShieldFragment _shieldFragment;
+    ShieldFragment _previousFragment;
 
-    private List<ShieldFragment> _shieldFragmentInstances = new List<ShieldFragment>();
+    private Stack<ShieldFragment> _shieldFragmentInstances = new Stack<ShieldFragment>();
+    //private ShieldFragment _currentFragment;
 
     public event Action OnNewShieldDraw;
 
     public IEnumerator DrawFireShield()
     {
-        for (int i = 0; i < 20; i++)
+        while (_shieldFragmentInstances.Count < 20 && Input.GetButton("Fire2"))
         {
-            if (!Input.GetButton("Fire2"))
-            {
-                break;
-            }
-            _shieldFragmentInstances.Add(DrawShieldFragment());
+            var _currentFragment = DrawShieldFragment();
+            _shieldFragmentInstances.Push(_currentFragment);
             yield return new WaitForSeconds(0.01f);
         }
     }
