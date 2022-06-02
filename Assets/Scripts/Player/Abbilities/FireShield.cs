@@ -1,36 +1,58 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class FireShield : MonoBehaviour
 {
     [SerializeField] ShieldFragment _shieldFragment;
-    ShieldFragment _previousFragment;
+    ShieldFragment _currentFragment;
+    public bool _drawingMode;
+
+    Vector2 mousePotition;
 
     private Stack<ShieldFragment> _shieldFragmentInstances = new Stack<ShieldFragment>();
+    [SerializeField] private int _fragmentsAmount = 20;
+    [SerializeField] private float _distanceBetweenSegments = 0.25f;
+
     //private ShieldFragment _currentFragment;
 
-    public event Action OnNewShieldDraw;
-
-    public IEnumerator DrawFireShield()
+    private void Update()
     {
-        while (_shieldFragmentInstances.Count < 20 && Input.GetButton("Fire2"))
+        mousePotition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        if (_drawingMode)
         {
-            var _currentFragment = DrawShieldFragment();
-            _shieldFragmentInstances.Push(_currentFragment);
-            yield return new WaitForSeconds(0.01f);
+            DrawFireShield(mousePotition);
         }
     }
 
-    private ShieldFragment DrawShieldFragment()
+    public void DrawFireShield(Vector2 mousePosition)
     {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.z = 0;
+        if (_shieldFragmentInstances.Count < 1)
+        {
+            _shieldFragmentInstances.Push(DrawShieldFragment(mousePosition));
+        }
+
+        if (_drawingMode && _shieldFragmentInstances.Count < _fragmentsAmount)
+        {
+            _currentFragment = _shieldFragmentInstances.Peek();
+
+            if (Vector2.Distance(_currentFragment.transform.position, mousePosition) > _distanceBetweenSegments)
+            {
+                _shieldFragmentInstances.Push(DrawShieldFragment(mousePosition));
+            }
+        }
+        
+    }
+
+    private ShieldFragment DrawShieldFragment(Vector2 pointPosition)
+    {
         ShieldFragment fragment = Instantiate(
             original: _shieldFragment,
-            position: mousePosition,
-            rotation: new Quaternion()
+            position: pointPosition,
+            rotation: Quaternion.identity
             );
         return fragment;
     }
@@ -44,9 +66,15 @@ public class FireShield : MonoBehaviour
         _shieldFragmentInstances.Clear();
     }
 
-    public void DrawNewFireShield()
+
+    public void DrawingModeOn()
     {
         Clear();
-        StartCoroutine(DrawFireShield());
+        _drawingMode = true;
+    }
+
+    public void DrawingModeOff()
+    {
+        _drawingMode = false;
     }
 }

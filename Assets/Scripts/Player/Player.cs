@@ -66,7 +66,11 @@ public class Player : MonoBehaviour
         }
         if (Input.GetButtonDown("Fire2"))
         {
-            _fireShield.DrawNewFireShield();
+            _fireShield.DrawingModeOn();
+        }
+        if (Input.GetButtonUp("Fire2"))
+        {
+            _fireShield.DrawingModeOff();
         }
 
         _velocity.y += Physics2D.gravity.y * Time.deltaTime;
@@ -101,7 +105,7 @@ public class Player : MonoBehaviour
         Rigidbody2D fireBallInstance = Instantiate(
             _fireBall,
             transform.position,
-            transform.rotation);
+            Quaternion.identity);
         fireBallInstance.velocity = transform.right * 70;
         return fireBallInstance;
     }
