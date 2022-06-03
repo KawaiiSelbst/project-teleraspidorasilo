@@ -11,7 +11,6 @@ public class Player : MonoBehaviour
     [SerializeField] private float _airAcceleration = 30;
     [SerializeField] private float _groundDeceleration = 70;
     [SerializeField] private float _jumpHeight = 4;
-    [SerializeField] private ShieldFragment _shieldFragment;
 
     [SerializeField] private Rigidbody2D _fireBall;
 
@@ -20,7 +19,9 @@ public class Player : MonoBehaviour
     private Vector2 _velocity;
     private bool _isGrounded;
     private int _jumpsCount;
-    
+
+
+    public event Action<Vector3> CameraToPlayerWrap;
 
     private void Awake()
     {
@@ -32,6 +33,8 @@ public class Player : MonoBehaviour
     {
 
         transform.Translate(_velocity * Time.deltaTime);
+
+        CameraToPlayerWrap(transform.position);
 
         float moveInput = Input.GetAxisRaw("Horizontal");
 

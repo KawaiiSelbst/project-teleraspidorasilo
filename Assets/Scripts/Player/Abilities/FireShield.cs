@@ -35,10 +35,7 @@ public class FireShield : MonoBehaviour
         if (_segments.Count > 1)
         {
             _edgeCollider2D.enabled = true;
-        }
-        if (_currentLenght > 3)
-        {
-            DrawingModeOff();
+            _lineRenderer.enabled = true;
         }
         
     }
@@ -72,7 +69,7 @@ public class FireShield : MonoBehaviour
                 _currentLenght += distance;
                 _segments.Add(mousePosition);
                 DrawLine(_segments);
-                DrawCollieder(_segments);
+                DrawCollider(_segments);
             }
         }
         else
@@ -82,7 +79,7 @@ public class FireShield : MonoBehaviour
 
     }
 
-    private void DrawCollieder(List<Vector2> segments)
+    private void DrawCollider(List<Vector2> segments)
     {
         _edgeCollider2D.SetPoints(segments);
     }
@@ -98,5 +95,6 @@ public class FireShield : MonoBehaviour
         _segments.Clear();
         _lineRenderer.SetPositions(Utills.ListVector2_Vector3Array(_segments));
         _edgeCollider2D.enabled = false;
+        _lineRenderer.enabled = false;
     }
 }

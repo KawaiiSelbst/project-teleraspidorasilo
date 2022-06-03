@@ -1442,12 +1442,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e4a1ffda79c08c4188864dfc85645a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 9
-  walkAcceleration: 75
-  airAcceleration: 30
-  groundDeceleration: 70
-  jumpHeight: 4
-  fireBall: {fileID: -6400466909291933780, guid: bf327c078fa97c24ebc1d85b28894c19, type: 3}
+  _speed: 9
+  _walkAcceleration: 75
+  _airAcceleration: 30
+  _groundDeceleration: 70
+  _jumpHeight: 4
+  _fireBall: {fileID: -6400466909291933780, guid: bf327c078fa97c24ebc1d85b28894c19, type: 3}
 --- !u!61 &2019835741
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1501,6 +1501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828cac36cfc8556408853fd307cf4059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _fireShieldPrefab: {fileID: 6250278027356257404, guid: 5b8cac30560dea64db4b3342fc43c534, type: 3}
 --- !u!1 &2088122688
 GameObject:
   m_ObjectHideFlags: 0
