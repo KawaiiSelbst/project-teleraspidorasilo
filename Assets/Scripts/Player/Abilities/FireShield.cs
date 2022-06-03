@@ -1,31 +1,26 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(EdgeCollider2D))]
+[RequireComponent(typeof(LineRenderer))]
 public class FireShield : MonoBehaviour
 {
-    [SerializeField] private ShieldFragment _shieldFragment;
-    [SerializeField] private LineRenderer _lineRenderer;
-    [SerializeField] private EdgeCollider2D _edgeColliderPrefab;
-    [SerializeField] private int _fragmentsAmount = 20;
+    [SerializeField] private float _shieldLenght = 3;
     [SerializeField] private float _distanceBetweenSegments = 0.25f;
 
     private EdgeCollider2D _edgeCollider2D;
+    private LineRenderer _lineRenderer;
 
-    private ShieldFragment _currentFragment;
     private Vector2 _mousePosition;
-    private Stack<ShieldFragment> _shieldFragments = new Stack<ShieldFragment>();
-
-    private Vector2 _currentSegment;
     private List<Vector2> _segments = new List<Vector2>();
+
+    private float _currentLenght;
     private bool _drawingMode;
 
     private void Start()
     {
-        _edgeCollider2D = Instantiate(_edgeColliderPrefab, transform.position, Quaternion.identity).GetComponent<EdgeCollider2D>();
-        _edgeCollider2D.transform.parent = null;
+        _edgeCollider2D = GetComponent<EdgeCollider2D>();
+        _lineRenderer = GetComponent<LineRenderer>();
     }
 
     private void Update()
@@ -37,7 +32,27 @@ public class FireShield : MonoBehaviour
             var mousePositionWorld = Camera.main.ScreenToWorldPoint(_mousePosition);
             DrawFireShield(mousePositionWorld);
         }
+        if (_segments.Count > 1)
+        {
+            _edgeCollider2D.enabled = true;
+        }
+        if (_currentLenght > 3)
+        {
+            DrawingModeOff();
+        }
         
+    }
+
+    public void DrawingModeOn()
+    {
+        Clear();
+        _currentLenght = 0;
+        _drawingMode = true;
+    }
+
+    public void DrawingModeOff()
+    {
+        _drawingMode = false;
     }
 
     public void DrawFireShield(Vector2 mousePosition)
@@ -47,74 +62,41 @@ public class FireShield : MonoBehaviour
             _segments.Add(mousePosition);
         }
 
-        if (_drawingMode && _segments.Count < _fragmentsAmount)
+        if (_drawingMode && _currentLenght < _shieldLenght)
         {
-            _currentSegment = _segments[_segments.Count - 1];
+            var currentSegment = _segments[_segments.Count - 1];
+            var distance = Vector2.Distance(currentSegment, mousePosition);
 
-            if (Vector2.Distance(_currentSegment, mousePosition) > _distanceBetweenSegments)
+            if (distance > _distanceBetweenSegments)
             {
+                _currentLenght += distance;
                 _segments.Add(mousePosition);
+                DrawLine(_segments);
+                DrawCollieder(_segments);
             }
         }
-        _lineRenderer.positionCount = _segments.Count;
-        _lineRenderer.SetPositions(Util.Vec2toVec3(_segments.ToArray()));
-        _edgeCollider2D.SetPoints(_segments);
-
-    }
-
-    private void DrawLine()
-    {
-        var i = 0;
-        foreach (var segment in _segments)
+        else
         {
-            
-            _lineRenderer.SetPosition(i, segment);
-            i += 1;
+            DrawingModeOff();
         }
+
     }
 
-    private ShieldFragment DrawShieldFragment(Vector2 pointPosition)
+    private void DrawCollieder(List<Vector2> segments)
     {
-        ShieldFragment fragment = Instantiate(
-            original: _shieldFragment,
-            position: pointPosition,
-            rotation: Quaternion.identity
-            );
-        return fragment;
+        _edgeCollider2D.SetPoints(segments);
+    }
+
+    private void DrawLine(List<Vector2> segments)
+    {
+        _lineRenderer.positionCount = segments.Count;
+        _lineRenderer.SetPositions(Utills.ListVector2_Vector3Array(segments));
     }
 
     private void Clear()
     {
-        foreach (var segment in _segments)
-        {
-            //GameObject.Destroy(segment.gameObject);
-        }
-        _lineRenderer.SetPositions(new Vector3[] { Vector3.zero });
         _segments.Clear();
-    }
-
-
-    public void DrawingModeOn()
-    {
-        Clear();
-        _drawingMode = true;
-    }
-
-    public void DrawingModeOff()
-    {
-        _drawingMode = false;
-    }
-}
-
-public static class Util
-{
-    public static Vector3[] Vec2toVec3(Vector2[] Vec2) 
-    {
-        List<Vector3> list = new List<Vector3>();
-        foreach (Vector2 v in Vec2)
-        {
-            list.Add(v);
-        }
-        return list.ToArray();
+        _lineRenderer.SetPositions(Utills.ListVector2_Vector3Array(_segments));
+        _edgeCollider2D.enabled = false;
     }
 }

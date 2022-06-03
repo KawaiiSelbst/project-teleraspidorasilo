@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
-[RequireComponent(typeof(FireShield))]
 public class Player : MonoBehaviour
 {
     [SerializeField] private float _speed = 9;
@@ -63,14 +62,6 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             ShootFireball();
-        }
-        if (Input.GetButtonDown("Fire2"))
-        {
-            _fireShield.DrawingModeOn();
-        }
-        if (Input.GetButtonUp("Fire2"))
-        {
-            _fireShield.DrawingModeOff();
         }
 
         _velocity.y += Physics2D.gravity.y * Time.deltaTime;
