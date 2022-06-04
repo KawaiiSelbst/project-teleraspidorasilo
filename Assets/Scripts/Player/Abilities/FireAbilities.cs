@@ -3,6 +3,8 @@ using UnityEngine;
 public class FireAbilities : MonoBehaviour
 {
     [SerializeField] private FireShield _fireShieldPrefab;
+    [SerializeField] private Rigidbody2D _fireBallPrefab;
+
     private FireShield _fireShield;
 
     private void Start()
@@ -20,5 +22,18 @@ public class FireAbilities : MonoBehaviour
         {
             _fireShield.DrawingModeOff();
         }
+        if (Input.GetButtonDown("Fire1"))
+        {
+            ShootFireball();
+        }
+    }
+    private Rigidbody2D ShootFireball()
+    {
+        Rigidbody2D fireBallInstance = Instantiate(
+            _fireBallPrefab,
+            transform.position,
+            Quaternion.identity);
+        fireBallInstance.velocity = transform.right * 70;
+        return fireBallInstance;
     }
 }

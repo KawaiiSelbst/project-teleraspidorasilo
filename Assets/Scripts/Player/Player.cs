@@ -12,9 +12,6 @@ public class Player : MonoBehaviour
     [SerializeField] private float _groundDeceleration = 70;
     [SerializeField] private float _jumpHeight = 4;
 
-    [SerializeField] private Rigidbody2D _fireBallPrefab;
-
-    private FireShield _fireShield;
     private BoxCollider2D _boxCollider2D;
     private Vector2 _velocity;
     private bool _isGrounded;
@@ -26,7 +23,6 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         _boxCollider2D = GetComponent<BoxCollider2D>();
-        _fireShield = GetComponent<FireShield>();
     }
 
     private void Update()
@@ -62,11 +58,6 @@ public class Player : MonoBehaviour
             _velocity.y = Mathf.Sqrt(2 * _jumpHeight * Mathf.Abs(Physics2D.gravity.y));
         }
 
-        if (Input.GetButtonDown("Fire1"))
-        {
-            ShootFireball();
-        }
-
         _velocity.y += Physics2D.gravity.y * Time.deltaTime;
 
         Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position, _boxCollider2D.size, 0);
@@ -92,17 +83,6 @@ public class Player : MonoBehaviour
                 }
             }
         }
-    }
-
-    private Rigidbody2D ShootFireball()
-    {
-        Vector2 fireBallPosition = transform.position + Vector3.right;
-        Rigidbody2D fireBallInstance = Instantiate(
-            _fireBallPrefab,
-            fireBallPosition,
-            transform.rotation);
-        fireBallInstance.velocity = transform.right * 70;
-        return fireBallInstance;
     }
 }
 
