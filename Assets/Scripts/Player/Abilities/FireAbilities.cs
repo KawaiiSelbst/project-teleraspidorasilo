@@ -27,13 +27,12 @@ public class FireAbilities : MonoBehaviour
             ShootFireball();
         }
     }
-    private Rigidbody2D ShootFireball()
+    private void ShootFireball()
     {
         Rigidbody2D fireBallInstance = Instantiate(
             _fireBallPrefab,
             transform.position,
             Quaternion.identity);
         fireBallInstance.velocity = transform.right * 70;
-        return fireBallInstance;
     }
 }
