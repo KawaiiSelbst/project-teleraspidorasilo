@@ -5,8 +5,7 @@ using UnityEngine;
 public class Turret : MonoBehaviour
 {
 
-    [SerializeField]
-    private Rigidbody2D fireBall;
+    [SerializeField] private Rigidbody2D _fireBall;
 
     private List<Rigidbody2D> fireballInstances;
 
@@ -23,7 +22,7 @@ public class Turret : MonoBehaviour
 
     private Rigidbody2D ShootFireball()
     {
-        Rigidbody2D fireBallInstance = Instantiate(fireBall, transform.position, transform.rotation);
+        Rigidbody2D fireBallInstance = Instantiate(_fireBall, transform.position, transform.rotation);
         fireBallInstance.velocity = transform.right * -70;
         return fireBallInstance;
     }
