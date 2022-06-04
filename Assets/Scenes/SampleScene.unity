@@ -1444,7 +1444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 9
   _walkAcceleration: 75
-  _airAcceleration: 30
+  _airAcceleration: 50
   _groundDeceleration: 70
   _jumpHeight: 4
 --- !u!61 &2019835741
