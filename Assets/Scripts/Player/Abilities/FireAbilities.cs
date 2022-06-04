@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class FireAbilities : MonoBehaviour
@@ -6,6 +7,8 @@ public class FireAbilities : MonoBehaviour
     [SerializeField] private Rigidbody2D _fireBallPrefab;
 
     private FireShield _fireShield;
+
+    public Action<Collider2D> OnFireballInstantiate;
 
     private void Start()
     {
@@ -24,15 +27,17 @@ public class FireAbilities : MonoBehaviour
         }
         if (Input.GetButtonDown("Fire1"))
         {
-            ShootFireball();
+            var FireballCollider = ShootFireball().GetComponent<Collider2D>();
+            OnFireballInstantiate(FireballCollider);
         }
     }
-    private void ShootFireball()
+    private Rigidbody2D ShootFireball()
     {
         Rigidbody2D fireBallInstance = Instantiate(
             _fireBallPrefab,
             transform.position,
             Quaternion.identity);
-        fireBallInstance.velocity = transform.right * 70;
+        fireBallInstance.velocity = transform.right * 30;
+        return fireBallInstance;
     }
 }

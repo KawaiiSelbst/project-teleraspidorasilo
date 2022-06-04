@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _groundDeceleration = 70;
     [SerializeField] private float _jumpHeight = 4;
 
+    private FireAbilities _fireAbilities;
     private BoxCollider2D _boxCollider2D;
     private Vector2 _velocity;
     private bool _isGrounded;
@@ -18,9 +19,15 @@ public class Player : MonoBehaviour
 
     public event Action<Vector3> CameraToPlayerWrap;
 
-    private void Awake()
+    private void Start()
     {
         _boxCollider2D = GetComponent<BoxCollider2D>();
+        _fireAbilities = GetComponent<FireAbilities>();
+        _fireAbilities.OnFireballInstantiate += IgnoreFireballCollider;
+    }
+    private void OnDestroy()
+    {
+        _fireAbilities.OnFireballInstantiate -= IgnoreFireballCollider;
     }
 
     private void Update()
@@ -81,6 +88,10 @@ public class Player : MonoBehaviour
                 }
             }
         }
+    }
+    private void IgnoreFireballCollider(Collider2D fireballCollider)
+    {
+        Physics2D.IgnoreCollision(fireballCollider, _boxCollider2D);
     }
 }
 
