@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _groundDeceleration = 70;
     [SerializeField] private float _jumpHeight = 4;
 
-    [SerializeField] private Rigidbody2D _fireBall;
+    [SerializeField] private Rigidbody2D _fireBallPrefab;
 
     private FireShield _fireShield;
     private BoxCollider2D _boxCollider2D;
@@ -96,10 +96,11 @@ public class Player : MonoBehaviour
 
     private Rigidbody2D ShootFireball()
     {
+        Vector2 fireBallPosition = transform.position + Vector3.right;
         Rigidbody2D fireBallInstance = Instantiate(
-            _fireBall,
-            transform.position,
-            Quaternion.identity);
+            _fireBallPrefab,
+            fireBallPosition,
+            transform.rotation);
         fireBallInstance.velocity = transform.right * 70;
         return fireBallInstance;
     }
