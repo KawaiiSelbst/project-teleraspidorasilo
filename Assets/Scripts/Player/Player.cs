@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
@@ -66,10 +64,10 @@ public class Player : MonoBehaviour
 
         foreach (Collider2D hit in hits)
         {
-            if (hit.GetComponent<Player>())
-                continue;
-            if (hit.GetComponent<ShieldFragment>())
-                continue;
+            if (hit.GetComponent<Player>()) { continue; }
+            if (hit.GetComponent<FireShield>()) { continue; }
+            if (hit.GetComponent<FireBall>()) { continue; }
+
 
             ColliderDistance2D colliderDistance = hit.Distance(_boxCollider2D);
 
