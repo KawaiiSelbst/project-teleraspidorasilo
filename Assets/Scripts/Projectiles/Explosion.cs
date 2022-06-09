@@ -11,9 +11,4 @@ public class Explosion : MonoBehaviour
         yield return new WaitForSeconds(_lifeTime);
         GameObject.Destroy(gameObject);
     }
-
-    void Update()
-    {
-        
-    }
 }
