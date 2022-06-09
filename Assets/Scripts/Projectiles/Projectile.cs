@@ -2,16 +2,8 @@
 
 public class Projectile : MonoBehaviour
 {
-    protected void SelfDeletion()
+    protected virtual void SelfDeletion()
     {
         Destroy(gameObject);
-    }
-    private void Update()
-    {
-        
-    }
-    protected virtual void Collision()
-    {
-
     }
 }
