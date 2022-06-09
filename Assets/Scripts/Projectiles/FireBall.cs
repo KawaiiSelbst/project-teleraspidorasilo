@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -10,10 +11,13 @@ public class FireBall : Projectile
     private GameObject _explotion;
     private bool _isAlive = true;
 
-    private IEnumerator Start()
+    private void Awake()
     {
         _explotion = Instantiate(_explotionPrefab, transform.position, transform.rotation);
         _explotion.SetActive(false);
+    }
+    private IEnumerator Start()
+    {
         yield return new WaitForSeconds(_lifeTime);
         SelfDeletion();
     }
@@ -22,11 +26,20 @@ public class FireBall : Projectile
     {
         if (_isAlive)
         {
-            _isAlive = false;
-            SelfDeletion();
-            _explotion.transform.SetPositionAndRotation(transform.position, transform.rotation);
-            _explotion.SetActive(true);
+            Explode();
         }
+    }
 
+    private void Explode()
+    {
+        _isAlive = false;
+        _explotion.transform.SetPositionAndRotation(transform.position, transform.rotation);
+        _explotion.SetActive(true);
+        Destroy(gameObject);
+    }
+    protected override void SelfDeletion()
+    {
+        base.SelfDeletion();
+        Destroy(_explotion);
     }
 }
