@@ -232,7 +232,7 @@ GameObject:
   - component: {fileID: 664940090}
   - component: {fileID: 664940089}
   - component: {fileID: 664940088}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Static Sprite (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -517,7 +517,7 @@ GameObject:
   - component: {fileID: 1105595363}
   - component: {fileID: 1105595362}
   - component: {fileID: 1105595361}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Static Sprite (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -648,7 +648,7 @@ GameObject:
   - component: {fileID: 1294845988}
   - component: {fileID: 1294845987}
   - component: {fileID: 1294845986}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Static Sprite (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -779,7 +779,7 @@ GameObject:
   - component: {fileID: 1620197627}
   - component: {fileID: 1620197626}
   - component: {fileID: 1620197625}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Static Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -910,7 +910,7 @@ GameObject:
   - component: {fileID: 1723432333}
   - component: {fileID: 1723432332}
   - component: {fileID: 1723432331}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Static Sprite (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1038,7 +1038,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1782067347}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1079,7 +1079,7 @@ GameObject:
   - component: {fileID: 1869605911}
   - component: {fileID: 1869605910}
   - component: {fileID: 1869605909}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Static Sprite (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1210,7 +1210,7 @@ GameObject:
   - component: {fileID: 1880031774}
   - component: {fileID: 1880031773}
   - component: {fileID: 1880031772}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Static Sprite (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1423,7 +1423,7 @@ GameObject:
   - component: {fileID: 2019835741}
   - component: {fileID: 2019835740}
   - component: {fileID: 2019835743}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1447,6 +1447,9 @@ MonoBehaviour:
   _airAcceleration: 50
   _groundDeceleration: 70
   _jumpHeight: 4
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!61 &2019835741
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1514,7 +1517,7 @@ GameObject:
   - component: {fileID: 2088122691}
   - component: {fileID: 2088122690}
   - component: {fileID: 2088122689}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Static Sprite (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

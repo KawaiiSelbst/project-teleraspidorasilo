@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _airAcceleration = 30;
     [SerializeField] private float _groundDeceleration = 70;
     [SerializeField] private float _jumpHeight = 4;
+    [SerializeField] private LayerMask _layerMask;
 
     private FireAbilities _fireAbilities;
     private BoxCollider2D _boxCollider2D;
@@ -65,17 +66,12 @@ public class Player : MonoBehaviour
 
         _velocity.y += Physics2D.gravity.y * Time.deltaTime;
 
-        Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position, _boxCollider2D.size, 0);
+        Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position, _boxCollider2D.size, 0, _layerMask);
 
         _isGrounded = false;
 
         foreach (Collider2D hit in hits)
         {
-            if (hit.GetComponent<Player>()) { continue; }
-            if (hit.GetComponent<FireShield>()) { continue; }
-            if (hit.GetComponent<FireBall>()) { continue; }
-
-
             ColliderDistance2D colliderDistance = hit.Distance(_boxCollider2D);
 
             if (colliderDistance.isOverlapped)
