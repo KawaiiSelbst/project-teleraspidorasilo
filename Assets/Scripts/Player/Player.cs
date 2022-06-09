@@ -36,8 +36,6 @@ public class Player : MonoBehaviour
 
         transform.Translate(_velocity * Time.deltaTime);
 
-        CameraToPlayerWrap(transform.position);
-
         float moveInput = Input.GetAxisRaw("Horizontal");
 
         float acceleration = _isGrounded ? _walkAcceleration : _airAcceleration;
@@ -84,6 +82,7 @@ public class Player : MonoBehaviour
                 }
             }
         }
+        CameraToPlayerWrap(transform.position);
     }
     private void IgnoreFireballCollider(Collider2D fireballCollider)
     {
