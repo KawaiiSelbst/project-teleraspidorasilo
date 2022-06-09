@@ -17,8 +17,11 @@ public class FireShield : MonoBehaviour
     private float _currentLenght;
     private bool _drawingMode;
 
+    private Camera _mainCamera;
+
     private void Start()
     {
+        _mainCamera = Camera.main;
         _edgeCollider2D = GetComponent<EdgeCollider2D>();
         _lineRenderer = GetComponent<LineRenderer>();
     }
@@ -29,7 +32,7 @@ public class FireShield : MonoBehaviour
 
         if (_drawingMode)
         {
-            var mousePositionWorld = Camera.main.ScreenToWorldPoint(_mousePosition);
+            var mousePositionWorld = _mainCamera.ScreenToWorldPoint(_mousePosition);
             DrawFireShield(mousePositionWorld);
         }
         if (_segments.Count > 1)
