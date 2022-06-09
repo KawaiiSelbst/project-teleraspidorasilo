@@ -10,16 +10,10 @@ public class Turret : MonoBehaviour
     private List<Rigidbody2D> _fireballInstances;
     private BoxCollider2D _boxCollider2D;
 
-    // Start is called before the first frame update
     void Start()
     {
         _boxCollider2D = GetComponent<BoxCollider2D>();
         StartCoroutine(SomeCoroutine());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     private Rigidbody2D ShootFireball()
@@ -31,14 +25,13 @@ public class Turret : MonoBehaviour
     
     IEnumerator SomeCoroutine()
     {
-        //Declare a yield instruction.
         WaitForSeconds wait = new WaitForSeconds(1);
 
         while (true)
         {
             var fireballCollider = ShootFireball().GetComponent<Collider2D>();
             Physics2D.IgnoreCollision(fireballCollider, _boxCollider2D);
-            yield return wait; //Pause the loop for 3 seconds.
+            yield return wait;
         }
     }
 }
