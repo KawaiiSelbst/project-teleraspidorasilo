@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9162852442892016753}
   - component: {fileID: 2183027027367492090}
   - component: {fileID: 2507452434943595008}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,6 +62,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccbb297d1d03b3741bf7e3d8b463cfea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _lifeTime: 0.25
 --- !u!1 &2536897314028207061
 GameObject:
   m_ObjectHideFlags: 0
@@ -72,7 +73,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4792024355809821183}
   - component: {fileID: 3374546020357294117}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ExplotionSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +155,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1543187898614065247}
   - component: {fileID: 6910548093469985588}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ExplotionSprite2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
