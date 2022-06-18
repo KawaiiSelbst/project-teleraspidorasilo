@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float _speed = 9;
+    [SerializeField] private float _speed = 10;
     [SerializeField] private float _walkAcceleration = 75;
     [SerializeField] private float _airAcceleration = 30;
     [SerializeField] private float _groundDeceleration = 70;

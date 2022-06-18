@@ -15,4 +15,9 @@ public class CameraControl : MonoBehaviour
         PlayerPosition.z = this.transform.position.z;
         transform.SetPositionAndRotation(PlayerPosition, transform.rotation);
     }
+
+    private void OnDestroy()
+    {
+        player.CameraToPlayerWrap -= MoveCameraToPlayer;
+    }
 }
