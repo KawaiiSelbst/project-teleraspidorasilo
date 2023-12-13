@@ -64,7 +64,7 @@ public class FireShield : MonoBehaviour
 
         if (_drawingMode && _currentLenght < _shieldLenght)
         {
-            var currentSegment = _segments[_segments.Count - 1];
+            var currentSegment = _segments[^1];
             var distance = Vector2.Distance(currentSegment, mousePosition);
 
             if (distance > _distanceBetweenSegments)

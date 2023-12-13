@@ -55,7 +55,6 @@ public class Player : MonoBehaviour
             _velocity.y = 0;
             _jumpsCount = 2;
         }
-
         if (Input.GetButtonDown("Jump") && _jumpsCount > 0)
         {
             _jumpsCount -= 1;

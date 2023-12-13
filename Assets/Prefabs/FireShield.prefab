@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1754188765179926741}
   - component: {fileID: 136729546640329968}
   - component: {fileID: 6250278027356257404}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FireShield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,5 +161,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0e0c019d5deff4f8266aa0c7684b61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _segmentsAmount: 20
+  _shieldLenght: 3
   _distanceBetweenSegments: 0.25
